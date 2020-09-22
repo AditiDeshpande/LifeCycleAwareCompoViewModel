@@ -1,0 +1,40 @@
+Replacing Loaders with ViewModel
+
+Loader classes like CursorLoader are frequently used to keep the data
+in an app's UI in sync with a DB. U can use ViewModel with a few
+other classes , to replace the loader. Using a ViewModel separates
+ur UI controller from the data-loading operation, which means u have
+fewer strong refrences bet. classes.
+
+In one common approach to use loaders , an app might use CursorLoader
+to observe the contents of a DB. When a value in the DB changes , the
+loader automatically triggers a reload of the data and updates UI.
+
+UIController
+with LoadManager Callbacks (creates loaders, issues commands for
+loaders , updates UI)
+then UIController issue commands , such as initializing / restarting
+Loader.
+LoaderManager
+it manages loader / activity connection
+It sends commands to correct Loader
+It also triggers callbacks to update UI
+Loader
+loads the data. it observes DataSource (when using CursorLoader)
+It also informs when load complete and or if destroyed
+
+Using ViewModel is as follows
+UIController
+Upadtes UI
+It observes ViewModel for when to update UI
+It reference a ViewModel
+It gets correct ViewModel through ViewModelProvider
+
+ViewModelProvider
+It provides correct ViewModel
+
+ViewModel
+observes DataSource (when using Room)
+It has LiveData
+
+ViewModel includes support for Kotlin Coroutines.
